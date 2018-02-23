@@ -12,5 +12,6 @@ namespace AuthServer.Repositories
         T Get(Expression<Func<T, bool>> match);
         void Add(T t);
         void Save();
+        void Delete(T t);
     }
 }

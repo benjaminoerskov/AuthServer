@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AuthServer.DTOs;
 using AuthServer.Entities;
+using AuthServer.Models;
 
 namespace AuthServer.Repositories
 {
@@ -29,6 +31,12 @@ namespace AuthServer.Repositories
         public virtual void Add(T t)
         {
             _context.Set<T>().Add(t);
+            Save();
+        }
+
+        public virtual void Delete(T t)
+        {
+            _context.Remove(t);
             Save();
         }
 

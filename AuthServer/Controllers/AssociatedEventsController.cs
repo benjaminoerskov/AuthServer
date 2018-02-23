@@ -31,7 +31,7 @@ namespace AuthServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAssociatedEvent(PostAssociatedEventParams param)
+        public async Task<IActionResult> PostAssociatedEvent([FromBody]PostAssociatedEventParams param)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -59,6 +59,21 @@ namespace AuthServer.Controllers
 
 
             return Ok(newValue);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAssociatedEvent([FromBody] PostAssociatedEventParams param)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var query = _repo.GetAll();
+            var toDelete = query.SingleOrDefault(x => (x.EventId == param.EventId) && (x.Type == param.TypeOfAssociation) && (x.ApplicationUserId == user.Id));
+            _repo.Delete(toDelete);
+            return Ok();
         }
     }
 }
