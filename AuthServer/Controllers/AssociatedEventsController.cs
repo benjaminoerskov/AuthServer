@@ -64,6 +64,7 @@ namespace AuthServer.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteAssociatedEvent([FromBody] PostAssociatedEventParams param)
         {
+            //TODO lav om så den sletter på id i stedet for
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -74,6 +75,7 @@ namespace AuthServer.Controllers
             var toDelete = query.SingleOrDefault(x => (x.EventId == param.EventId) && (x.Type == param.TypeOfAssociation) && (x.ApplicationUserId == user.Id));
             _repo.Delete(toDelete);
             return Ok();
+
         }
     }
 }
