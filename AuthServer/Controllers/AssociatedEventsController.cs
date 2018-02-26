@@ -45,26 +45,20 @@ namespace AuthServer.Controllers
                 return NotFound(returnval);
             }
 
-            var newValue = new AssociatedEvents();
-            newValue.ApplicationUserId = user.Id;
-            newValue.EventId = param.EventId;
-            newValue.Type = param.TypeOfAssociation;
+            var newValue = new AssociatedEvents
+            {
+                ApplicationUserId = user.Id,
+                EventId = param.EventId,
+                Type = param.TypeOfAssociation
+            };
             _repo.Add(newValue);
-
-            //if (param.TypeOfAssociation)
-            //    var likedEvents = new AssociatedEvents();
-            //likedEvents.EventId = param.EventId;
-            //user = await _repo.GetAll().Include(i => i.AssociatedEvents).SingleOrDefaultAsync(i => i.Id == user.Id);
-            //user.AssociatedEvents.Add(likedEvents);
-
 
             return Ok(newValue);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAssociatedEvent([FromBody] PostAssociatedEventParams param)
+        public async Task<IActionResult> DeleteAssociatedEvent([FromBody] IdParam param)
         {
-            //TODO lav om så den sletter på id i stedet for
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -72,10 +66,10 @@ namespace AuthServer.Controllers
             }
 
             var query = _repo.GetAll();
-            var toDelete = query.SingleOrDefault(x => (x.EventId == param.EventId) && (x.Type == param.TypeOfAssociation) && (x.ApplicationUserId == user.Id));
+            //var toDelete = query.SingleOrDefault(x => (x.EventId == param.EventId) && (x.Type == param.TypeOfAssociation) && (x.ApplicationUserId == user.Id));
+            var toDelete = query.SingleOrDefault(x => x.Id == param.Id);
             _repo.Delete(toDelete);
             return Ok();
-
         }
     }
 }
