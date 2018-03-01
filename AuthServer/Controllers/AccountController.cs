@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AuthServer.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -68,13 +68,13 @@ namespace AuthServer.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<object> Protected()
+        public IActionResult Protected()
         {
             var derp = User;
-            return "Protected area";
+            return Ok("Protected");
         }
 
-        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        private async Task<IActionResult> GenerateJwtToken(string email, IdentityUser user)
         {
             var claims = new List<Claim>
             {
@@ -96,7 +96,7 @@ namespace AuthServer.Controllers
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return Ok("Bearer " + new JwtSecurityTokenHandler().WriteToken(token)); 
         }
     }
 }

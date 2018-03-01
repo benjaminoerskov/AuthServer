@@ -14,13 +14,13 @@ using Microsoft.EntityFrameworkCore;
 namespace AuthServer.Controllers
 {
     [Produces("application/json")]
-    [Route("api/AssociatedEvents")]
-    public class AssociatedEventsController : Controller
+    [Route("api/[controller]")]
+    public class AssociatedOccurrencesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IRepository<AssociatedEvents> _repo;
-        public AssociatedEventsController(
+        public AssociatedOccurrencesController(
             UserManager<ApplicationUser> userManager,
             IRepository<AssociatedEvents> repo,
             IMapper mapper)
@@ -66,10 +66,16 @@ namespace AuthServer.Controllers
             }
 
             var query = _repo.GetAll();
-            //var toDelete = query.SingleOrDefault(x => (x.EventId == param.EventId) && (x.Type == param.TypeOfAssociation) && (x.ApplicationUserId == user.Id));
             var toDelete = query.SingleOrDefault(x => x.Id == param.Id);
             _repo.Delete(toDelete);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Recommended")]
+        public async Task<IActionResult> GetAssociated()
+        {
+            return Ok("Her kommer dejlige occurrences");
         }
     }
 }
