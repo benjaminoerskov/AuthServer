@@ -31,7 +31,7 @@ namespace AuthServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAssociatedEvent([FromBody]PostAssociatedOccurrencesParams param)
+        public async Task<IActionResult> PostAssociatedOccurrence([FromBody]PostAssociatedOccurrencesParams param)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -42,7 +42,7 @@ namespace AuthServer.Controllers
             var newValue = new AssociatedOccurrences
             {
                 ApplicationUserId = user.Id,
-                EventId = param.EventId,
+                OccurrenceId = param.OccurrenceId,
                 Type = param.TypeOfAssociation
             };
             _repo.Add(newValue);
@@ -83,8 +83,7 @@ namespace AuthServer.Controllers
             }
 
             var query = _repo.GetAll();
-            var types = query.ToList().Where(x => x.ApplicationUserId == user.Id).Select(u => u.Type);
-
+            var types = query.ToList().Where(x => x.ApplicationUserId == user.Id).Select(u => u.Type).Distinct();
             return Ok(types);
         }
     }

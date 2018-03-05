@@ -11,6 +11,6 @@ namespace AuthServer.DTOs
         [Required]
         public string TypeOfAssociation { get; set; }
         [Required]
-        public int EventId { get; set; }
+        public int OccurrenceId { get; set; }
     }
 }

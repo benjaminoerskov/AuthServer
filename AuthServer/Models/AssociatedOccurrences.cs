@@ -13,8 +13,7 @@ namespace AuthServer.Models
     {
         public int Id { get; set; }
         public string ApplicationUserId { get; set; }
-        public int EventId { get; set; }
-        [JsonConverter(typeof(StringEnumConverter))]
+        public int OccurrenceId { get; set; }
         public string Type { get; set; }
 
 
