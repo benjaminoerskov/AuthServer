@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AuthServer.DTOs
 {
-    public class PostAssociatedEventParams
+    public class PostAssociatedOccurrencesParams
     {
         [Required]
-        public Models.Type TypeOfAssociation { get; set; }
+        public string TypeOfAssociation { get; set; }
         [Required]
         public int EventId { get; set; }
     }

@@ -14,7 +14,7 @@ namespace AuthServer.Entities
             : base(options)
         {
         }
-        public DbSet<AssociatedEvents> AssociatedEvents { get; set; }
+        public DbSet<AssociatedOccurrences> AssociatedEvents { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

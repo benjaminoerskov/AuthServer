@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AuthServer.Migrations
 {
-    public partial class addedListLikedEvents : Migration
+    public partial class restartedDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -155,21 +155,21 @@ namespace AuthServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssociatedEvents",
+                name: "AssociatedOccurrences",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<int>(nullable: false),
-                    ApplicationUserId1 = table.Column<string>(nullable: true),
-                    EventId = table.Column<int>(nullable: false)
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    EventId = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LikedEvents", x => x.ID);
+                    table.PrimaryKey("PK_AssociatedOccurrences", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LikedEvents_AspNetUsers_ApplicationUserId1",
-                        column: x => x.ApplicationUserId1,
+                        name: "FK_AssociatedOccurrences_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -215,9 +215,9 @@ namespace AuthServer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LikedEvents_ApplicationUserId1",
-                table: "AssociatedEvents",
-                column: "ApplicationUserId1");
+                name: "IX_AssociatedOccurrences_ApplicationUserId",
+                table: "AssociatedOccurrences",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -238,7 +238,7 @@ namespace AuthServer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AssociatedEvents");
+                name: "AssociatedOccurrences");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

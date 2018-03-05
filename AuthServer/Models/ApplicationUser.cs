@@ -9,6 +9,6 @@ namespace AuthServer.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<AssociatedEvents> AssociatedEvents { get; set; } = new HashSet<AssociatedEvents>();
+        public ICollection<AssociatedOccurrences> AssociatedOccurrences { get; set; } = new HashSet<AssociatedOccurrences>();
     }
 }

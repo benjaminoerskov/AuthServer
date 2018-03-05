@@ -19,10 +19,10 @@ namespace AuthServer.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-        private readonly IRepository<AssociatedEvents> _repo;
+        private readonly IRepository<AssociatedOccurrences> _repo;
         public AssociatedOccurrencesController(
             UserManager<ApplicationUser> userManager,
-            IRepository<AssociatedEvents> repo,
+            IRepository<AssociatedOccurrences> repo,
             IMapper mapper)
         {
             _userManager = userManager;
@@ -31,21 +31,15 @@ namespace AuthServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAssociatedEvent([FromBody]PostAssociatedEventParams param)
+        public async Task<IActionResult> PostAssociatedEvent([FromBody]PostAssociatedOccurrencesParams param)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Unauthorized();
             }
-            bool success = Enum.IsDefined(typeof(Models.Type), param.TypeOfAssociation);
-            if (!success)
-            {
-                var returnval = string.Format("Type {0} does not yet exist", param.TypeOfAssociation);
-                return NotFound(returnval);
-            }
 
-            var newValue = new AssociatedEvents
+            var newValue = new AssociatedOccurrences
             {
                 ApplicationUserId = user.Id,
                 EventId = param.EventId,
@@ -57,7 +51,7 @@ namespace AuthServer.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAssociatedEvent([FromBody] IdParam param)
+        public async Task<IActionResult> DeleteAssociatedOccurrence([FromBody] IdParam param)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -76,6 +70,22 @@ namespace AuthServer.Controllers
         public async Task<IActionResult> GetAssociated()
         {
             return Ok("Her kommer dejlige occurrences");
+        }
+
+        [HttpGet]
+        [Route("UserListTypes")]
+        public async Task<IActionResult> GetUserTypes()
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var query = _repo.GetAll();
+            var types = query.ToList().Where(x => x.ApplicationUserId == user.Id).Select(u => u.Type);
+
+            return Ok(types);
         }
     }
 }

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180305141417_ChangedFromEventToOccurrencesANDRefactoredTypeToStringFromEnum2.cs" />
+    <Compile Remove="Migrations\20180305141417_ChangedFromEventToOccurrencesANDRefactoredTypeToStringFromEnum2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Properties\PublishProfiles\QuestAarhusAPI - Web Deploy.pubxml" />
   </ItemGroup>
 

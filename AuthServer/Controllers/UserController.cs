@@ -38,7 +38,7 @@ namespace AuthServer.Controllers
             {
                 return Unauthorized();
             }
-            user = await _repo.GetAll().Include(i => i.AssociatedEvents).SingleOrDefaultAsync(i => i.Id == user.Id);
+            user = await _repo.GetAll().Include(i => i.AssociatedOccurrences).SingleOrDefaultAsync(i => i.Id == user.Id);
             var returnval = _mapper.Map<GetUserDTO>(user);
 
             return Ok(returnval);

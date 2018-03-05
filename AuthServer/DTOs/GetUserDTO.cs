@@ -11,7 +11,7 @@ namespace AuthServer.DTOs
         public string Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public ICollection<AssociatedEvents> AssociatedEvents { get; set; } = new HashSet<AssociatedEvents>();
+        public ICollection<AssociatedOccurrences> AssociatedOccurrences { get; set; } = new HashSet<AssociatedOccurrences>();
 
     }
 }
