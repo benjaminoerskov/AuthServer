@@ -44,9 +44,6 @@ namespace AuthServer.Controllers
             return Ok(returnval);
         }
 
-        
-
-
 
 
 

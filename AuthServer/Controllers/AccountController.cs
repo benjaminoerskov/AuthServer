@@ -43,7 +43,7 @@ namespace AuthServer.Controllers
                 return Ok(await GenerateJwtToken(model.Email, appUser));
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return Unauthorized();
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace AuthServer.Controllers
         {
             var user = new ApplicationUser()
             {
-                UserName = model.Email,
+                UserName = model.UserName, //Changed this from email. Might cause errors
                 Email = model.Email
                 
             };
@@ -63,7 +63,25 @@ namespace AuthServer.Controllers
                 return Ok(await GenerateJwtToken(model.Email, user));
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return Unauthorized();
+        }
+
+        
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] LoginDto model)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            //Lav reference til AssociatedOccurrencesController
+            //Slet først alle Occurrences for bruger
+            //Slet derefter bruger
+            var result = await _userManager.DeleteAsync(user);
+
+            return Ok(result);
         }
 
         [Authorize]
