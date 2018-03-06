@@ -77,9 +77,7 @@ namespace VentureAarhusBackend.API.Controllers
                 return Unauthorized();
             }
 
-            //Lav reference til AssociatedOccurrencesController
-            //Slet først alle Occurrences for bruger
-            //Slet derefter bruger
+            //Deleting user, and cascading delete on all associated data
             var result = await _userManager.DeleteAsync(user);
 
             return Ok(result);
