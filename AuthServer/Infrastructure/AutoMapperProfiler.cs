@@ -14,6 +14,8 @@ namespace AuthServer.Infrastructure
         {
             CreateMap<ApplicationUser, GetUserDTO>().ReverseMap()
                 .ForMember(p => p.Id, opt => opt.Ignore());
+
+            CreateMap<AssociatedOccurrences, AssociatedOccurrencesDTO>().ReverseMap();
         }
     }
 }

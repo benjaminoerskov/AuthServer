@@ -39,15 +39,26 @@ namespace AuthServer.Controllers
                 return Unauthorized();
             }
 
-            var newValue = new AssociatedOccurrences
+            var occurrences = new AssociatedOccurrences
             {
                 ApplicationUserId = user.Id,
                 OccurrenceId = param.OccurrenceId,
                 Type = param.TypeOfAssociation
             };
-            _repo.Add(newValue);
 
-            return Ok(newValue);
+            var query = _repo.GetAll();
+            var result = query.FirstOrDefault(x =>
+                 (x.ApplicationUserId == user.Id) && (x.OccurrenceId == param.OccurrenceId) &&
+                 (x.Type == param.TypeOfAssociation));
+            if (result != null)
+            {
+                return BadRequest("Occurence already exists for user with this type");
+            }
+            _repo.Add(occurrences);
+
+            var occurencesDto = _mapper.Map<AssociatedOccurrencesDTO>(occurrences);
+
+            return Ok(occurencesDto);
         }
 
         [HttpDelete]

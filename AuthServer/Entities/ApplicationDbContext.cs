@@ -19,6 +19,11 @@ namespace AuthServer.Entities
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ApplicationUser>()
+                .HasMany(o => o.AssociatedOccurrences)
+                .WithOne(a => a.ApplicationUser)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
