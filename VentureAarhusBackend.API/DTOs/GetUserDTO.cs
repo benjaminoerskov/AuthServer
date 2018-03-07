@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VentureAarhusBackend.API.DTOs
+namespace DetSkerIAarhusBackend.API.DTOs
 {
     public class GetUserDTO
     {

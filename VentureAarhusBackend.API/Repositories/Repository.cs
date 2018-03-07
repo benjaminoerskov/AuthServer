@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using VentureAarhusBackend.API.Entities;
+using DetSkerIAarhusBackend.API.Entities;
 
-namespace VentureAarhusBackend.API.Repositories
+namespace DetSkerIAarhusBackend.API.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {

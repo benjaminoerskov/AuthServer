@@ -1,4 +1,4 @@
-﻿namespace VentureAarhusBackend.API.DTOs
+﻿namespace DetSkerIAarhusBackend.API.DTOs
 {
     public class AssociatedOccurrencesDTO
     {

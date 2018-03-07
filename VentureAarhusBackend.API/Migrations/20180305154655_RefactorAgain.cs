@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VentureAarhusBackend.API.Migrations
+namespace DetSkerIAarhusBackend.API.Migrations
 {
     public partial class RefactorAgain : Migration
     {

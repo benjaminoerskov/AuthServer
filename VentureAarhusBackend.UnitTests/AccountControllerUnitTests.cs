@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using DetSkerIAarhusBackend.API.Controllers;
+using DetSkerIAarhusBackend.API.DTOs;
+using DetSkerIAarhusBackend.API.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using VentureAarhusBackend.API.Controllers;
-using VentureAarhusBackend.API.Models;
-using Microsoft.Extensions.Configuration;
-using VentureAarhusBackend.API.DTOs;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 
-namespace VentureAarhusBackend.UnitTests
+namespace DetSkerIAarhusBackend.UnitTests
 {
     [TestClass]
     public class AccountControllerUnitTests

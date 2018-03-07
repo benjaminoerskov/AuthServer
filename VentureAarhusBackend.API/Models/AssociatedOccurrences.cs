@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VentureAarhusBackend.API.Models
+namespace DetSkerIAarhusBackend.API.Models
 {
     [Table("AssociatedOccurrences")]
     public class AssociatedOccurrences

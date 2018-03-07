@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace VentureAarhusBackend.API.Repositories
+namespace DetSkerIAarhusBackend.API.Repositories
 {
     public interface IRepository<T> where T : class
     {

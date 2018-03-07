@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DetSkerIAarhusBackend.API.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VentureAarhusBackend.API.Models;
 
-namespace VentureAarhusBackend.API.Entities
+namespace DetSkerIAarhusBackend.API.Entities
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

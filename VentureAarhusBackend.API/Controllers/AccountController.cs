@@ -5,15 +5,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DetSkerIAarhusBackend.API.DTOs;
+using DetSkerIAarhusBackend.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using VentureAarhusBackend.API.DTOs;
-using VentureAarhusBackend.API.Models;
 
-namespace VentureAarhusBackend.API.Controllers
+namespace DetSkerIAarhusBackend.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller

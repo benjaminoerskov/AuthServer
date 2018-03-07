@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace VentureAarhusBackend.API
+namespace DetSkerIAarhusBackend.API
 {
     public class Program
     {

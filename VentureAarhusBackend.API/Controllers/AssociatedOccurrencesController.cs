@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DetSkerIAarhusBackend.API.DTOs;
+using DetSkerIAarhusBackend.API.Models;
+using DetSkerIAarhusBackend.API.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using VentureAarhusBackend.API.DTOs;
-using VentureAarhusBackend.API.Models;
-using VentureAarhusBackend.API.Repositories;
 
-namespace VentureAarhusBackend.API.Controllers
+namespace DetSkerIAarhusBackend.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

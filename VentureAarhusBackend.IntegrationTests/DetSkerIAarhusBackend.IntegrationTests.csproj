@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VentureAarhusBackend.API\VentureAarhusBackend.API.csproj" />
+    <ProjectReference Include="..\VentureAarhusBackend.API\DetSkerIAarhusBackend.API.csproj" />
   </ItemGroup>
 
 </Project>

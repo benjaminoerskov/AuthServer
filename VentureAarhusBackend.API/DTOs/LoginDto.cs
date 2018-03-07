@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VentureAarhusBackend.API.DTOs
+namespace DetSkerIAarhusBackend.API.DTOs
 {
     public class LoginDto
     {

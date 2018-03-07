@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VentureAarhusBackend.API.Migrations
+namespace DetSkerIAarhusBackend.API.Migrations
 {
     public partial class restartedDB : Migration
     {

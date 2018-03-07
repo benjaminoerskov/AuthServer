@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using VentureAarhusBackend.API.DTOs;
-using VentureAarhusBackend.API.Models;
+using DetSkerIAarhusBackend.API.DTOs;
+using DetSkerIAarhusBackend.API.Models;
 
-namespace VentureAarhusBackend.API.Infrastructure
+namespace DetSkerIAarhusBackend.API.Infrastructure
 {
     public class AutoMapperProfiler : Profile
     {

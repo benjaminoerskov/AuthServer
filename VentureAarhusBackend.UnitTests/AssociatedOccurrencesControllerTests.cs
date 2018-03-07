@@ -3,6 +3,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using DetSkerIAarhusBackend.API.Controllers;
+using DetSkerIAarhusBackend.API.DTOs;
+using DetSkerIAarhusBackend.API.Entities;
+using DetSkerIAarhusBackend.API.Models;
+using DetSkerIAarhusBackend.API.Repositories;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,13 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using VentureAarhusBackend.API.Controllers;
-using VentureAarhusBackend.API.DTOs;
-using VentureAarhusBackend.API.Entities;
-using VentureAarhusBackend.API.Models;
-using VentureAarhusBackend.API.Repositories;
 
-namespace VentureAarhusBackend.UnitTests
+namespace DetSkerIAarhusBackend.UnitTests
 {
     [TestClass]
     public class AssociatedOccurrencesControllerTests
