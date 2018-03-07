@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.API", "VentureAarhusBackend.API\DetSkerIAarhusBackend.API.csproj", "{98364066-5C66-45E0-A67E-4D1C30867803}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.API", "DetSkerIAarhusBackend.API\DetSkerIAarhusBackend.API.csproj", "{98364066-5C66-45E0-A67E-4D1C30867803}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.UnitTests", "VentureAarhusBackend.UnitTests\DetSkerIAarhusBackend.UnitTests.csproj", "{657CD7C8-D979-4F5A-A588-4F4968D4335F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.UnitTests", "DetSkerIAarhusBackend.UnitTests\DetSkerIAarhusBackend.UnitTests.csproj", "{657CD7C8-D979-4F5A-A588-4F4968D4335F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.IntegrationTests", "VentureAarhusBackend.IntegrationTests\DetSkerIAarhusBackend.IntegrationTests.csproj", "{CB04CF7C-0A3C-4A0E-82D1-7C0A90D558E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DetSkerIAarhusBackend.IntegrationTests", "DetSkerIAarhusBackend.IntegrationTests\DetSkerIAarhusBackend.IntegrationTests.csproj", "{CB04CF7C-0A3C-4A0E-82D1-7C0A90D558E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
