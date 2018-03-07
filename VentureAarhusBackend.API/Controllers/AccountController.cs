@@ -67,7 +67,6 @@ namespace VentureAarhusBackend.API.Controllers
             return Unauthorized();
         }
 
-        
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] LoginDto model)
         {
@@ -112,7 +111,6 @@ namespace VentureAarhusBackend.API.Controllers
                 expires: expires,
                 signingCredentials: creds
             );
-
             return Ok("Bearer " + new JwtSecurityTokenHandler().WriteToken(token)); 
         }
     }

@@ -29,6 +29,8 @@ namespace VentureAarhusBackend.UnitTests
         private ApplicationDbContext _dbContext = null;
 
         private Mock<Repository<AssociatedOccurrences>> _mockRepo = null;
+        private List<AssociatedOccurrences> _occurrencesList = null;
+
 
 
         [TestInitialize]
@@ -38,7 +40,6 @@ namespace VentureAarhusBackend.UnitTests
             var mockUserManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             _optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase();
-            //_optionsBuilder.UseInMemoryDatabase();
             _dbContext = new ApplicationDbContext(_optionsBuilder.Options);
 
             _mockRepo = new Mock<Repository<AssociatedOccurrences>>(_dbContext);
@@ -62,12 +63,16 @@ namespace VentureAarhusBackend.UnitTests
                 }
             };
 
+            _occurrencesList = new List<AssociatedOccurrences>();
+
             //Setup methods:
-            mockUserManager.Setup(x => x.GetUserAsync(_controller.User)).Returns(Task.FromResult<ApplicationUser>(_testUser)); 
+            mockUserManager.Setup(x => x.GetUserAsync(_controller.User)).Returns(Task.FromResult<ApplicationUser>(_testUser));
+            _mockRepo.Setup(x => x.GetAll()).Returns(_occurrencesList.AsQueryable());
+
         }
 
         [TestMethod]
-        public void PostAssociatedOccurrencePositive()
+        public void TestPostAssociatedOccurrencePositive()
         {
             var param = new PostAssociatedOccurrencesParams
             {
@@ -83,8 +88,6 @@ namespace VentureAarhusBackend.UnitTests
                 Type = "like"
             };
 
-            var occurrencesList = new List<AssociatedOccurrences>();
-
             var associated1 = new AssociatedOccurrences
             {
                 ApplicationUser = _testUser,
@@ -93,12 +96,10 @@ namespace VentureAarhusBackend.UnitTests
                 Type = "like",
                 OccurrenceId = 1
             };
-            occurrencesList.Add(associated1);
-            _mockRepo.Setup(x => x.GetAll()).Returns(occurrencesList.AsQueryable());
+            _occurrencesList.Add(associated1);
 
             _mockMapper.Setup(x =>
                 x.Map<AssociatedOccurrencesDTO>(It.IsAny<AssociatedOccurrences>())).Returns(AssociatedDTO);
-
 
             var response = _controller.PostAssociatedOccurrence(param).Result;
             var okResult = response.Should().BeOfType<OkObjectResult>().Subject;
@@ -110,7 +111,7 @@ namespace VentureAarhusBackend.UnitTests
         }
 
         [TestMethod]
-        public void PostAssociatedOccurrenceNegative()
+        public void TestPostAssociatedOccurrenceNegative()
         {
             var param = new PostAssociatedOccurrencesParams
             {
@@ -126,7 +127,6 @@ namespace VentureAarhusBackend.UnitTests
                 Type = "like"
             };
 
-            var occurrencesList = new List<AssociatedOccurrences>();
 
             var associated1 = new AssociatedOccurrences
             {
@@ -136,9 +136,7 @@ namespace VentureAarhusBackend.UnitTests
                 Type = "like",
                 OccurrenceId = 20
             };
-            occurrencesList.Add(associated1);
-
-            _mockRepo.Setup(x => x.GetAll()).Returns(occurrencesList.AsQueryable());
+            _occurrencesList.Add(associated1);
 
             _mockMapper.Setup(x =>
                 x.Map<AssociatedOccurrencesDTO>(It.IsAny<AssociatedOccurrences>())).Returns(AssociatedDTO);
@@ -146,6 +144,129 @@ namespace VentureAarhusBackend.UnitTests
 
             var response = _controller.PostAssociatedOccurrence(param).Result;
             var okResult = response.Should().BeOfType<BadRequestObjectResult>().Subject;
+        }
+
+        [TestMethod]
+        public void TestDeleteAssociatedOccurrencePositive()
+        {
+            var param = new IdParam
+            {
+               Id = 20
+            };
+
+            var associated1 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = _testUser.Id,
+                Type = "like",
+                OccurrenceId = 1
+            };
+            _occurrencesList.Add(associated1);
+
+            var response = _controller.DeleteAssociatedOccurrence(param).Result;
+            var okResult = response.Should().BeOfType<NoContentResult>().Subject;
+            
+        }
+
+        [TestMethod]
+        public void TestDeleteAssociatedOccurrenceNegative()
+        {
+            var param = new IdParam
+            {
+                Id = 21
+            };
+
+            var associated1 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = _testUser.Id,
+                Type = "like",
+                OccurrenceId = 1
+            };
+            _occurrencesList.Add(associated1);
+
+            var response = _controller.DeleteAssociatedOccurrence(param).Result;
+            var okResult = response.Should().BeOfType<NotFoundObjectResult>().Subject;
+            var returnString = okResult.Value.Should().BeAssignableTo<string>().Subject;
+        }
+
+        [TestMethod]
+        public void TestGetUserTypesPositive()
+        {
+            var associated1 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = _testUser.Id,
+                Type = "like",
+                OccurrenceId = 1
+            };
+            var associated2 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = _testUser.Id,
+                Type = "heart",
+                OccurrenceId = 1
+            };
+            var associated3 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = _testUser.Id,
+                Type = "follow",
+                OccurrenceId = 1
+            };
+            _occurrencesList.Add(associated1);
+            _occurrencesList.Add(associated2);
+            _occurrencesList.Add(associated3);
+
+            var response = _controller.GetUserTypes().Result;
+            var okResult = response.Should().BeOfType<OkObjectResult>().Subject;
+            var returnList = okResult.Value.Should().BeAssignableTo<IEnumerable<string>>().Subject.ToList();
+            returnList[0].Should().Be("like");
+            returnList[1].Should().Be("heart");
+            returnList[2].Should().Be("follow");
+        }
+
+        [TestMethod]
+        public void TestGetUserTypesNegative()
+        {
+            var falseId = "falseTestId";
+            var associated1 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = falseId,
+                Type = "like",
+                OccurrenceId = 1
+            };
+            var associated2 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = falseId,
+                Type = "heart",
+                OccurrenceId = 1
+            };
+            var associated3 = new AssociatedOccurrences
+            {
+                ApplicationUser = _testUser,
+                Id = 20,
+                ApplicationUserId = falseId,
+                Type = "follow",
+                OccurrenceId = 1
+            };
+            _occurrencesList.Add(associated1);
+            _occurrencesList.Add(associated2);
+            _occurrencesList.Add(associated3);
+
+            var response = _controller.GetUserTypes().Result;
+            var okResult = response.Should().BeOfType<NotFoundObjectResult>().Subject;
+            var returnString = okResult.Value.Should().BeAssignableTo<string>().Subject;
+            returnString.Should().Be("User doesnt have any lists");
         }
 
         [TestCleanup]

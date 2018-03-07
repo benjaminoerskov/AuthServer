@@ -68,8 +68,15 @@ namespace VentureAarhusBackend.API.Controllers
 
             var query = _repo.GetAll();
             var toDelete = query.SingleOrDefault(x => x.Id == param.Id);
-            _repo.Delete(toDelete);
-            return Ok();
+            if (toDelete != null)
+            {
+                _repo.Delete(toDelete);
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(string.Format($"No occurrence with id: {0} exists", param.Id));
+            }
         }
 
         [HttpGet]
@@ -91,7 +98,14 @@ namespace VentureAarhusBackend.API.Controllers
 
             var query = _repo.GetAll();
             var types = query.ToList().Where(x => x.ApplicationUserId == user.Id).Select(u => u.Type).Distinct();
-            return Ok(types);
+            if (types.ToList().Count > 1)
+            {
+                return Ok(types);
+            }
+            else
+            {
+                return NotFound("User doesnt have any lists");
+            }
         }
     }
 }
